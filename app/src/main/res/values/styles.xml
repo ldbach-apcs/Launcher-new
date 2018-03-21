@@ -8,4 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <style name="PopupTheme" parent="Base.Widget.AppCompat.PopupWindow">
+        <item name="android:itemBackground">@color/colorBackgroundDialog</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+
 </resources>

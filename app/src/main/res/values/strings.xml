@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Launcher</string>
+    <string name="app_info">Application info</string>
+    <string name="app_delete">Delete  app</string>
 </resources>

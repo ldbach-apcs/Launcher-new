@@ -1,5 +1,6 @@
 package vn.ldbach.launcher.AppList;
 
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -9,20 +10,22 @@ import java.util.List;
 import vn.ldbach.launcher.databinding.ItemAppBinding;
 
 /**
- * Created by Duy-Bach on 3/18/2018.
+ * Adapter for displaying list of applications
  */
 
-class AppAdapter extends RecyclerView.Adapter<AppViewHolder> {
+class AppListAdapter extends RecyclerView.Adapter<AppViewHolder> {
     private List<AppDetail> apps;
-    AppAdapter(List<AppDetail> appDetails) {
+    private Fragment fragment;
+    AppListAdapter(List<AppDetail> appDetails, Fragment fragment) {
         apps = appDetails;
+        this.fragment = fragment;
     }
 
     @Override
     public AppViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         ItemAppBinding appBinding = ItemAppBinding.inflate(layoutInflater, parent, false);
-        return new AppViewHolder(appBinding, parent.getContext());
+        return new AppViewHolder(appBinding, fragment);
     }
 
     @Override

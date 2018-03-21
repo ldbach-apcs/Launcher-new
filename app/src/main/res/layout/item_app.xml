@@ -10,7 +10,7 @@
 
         <TextView
             android:padding="8dp"
-            android:text="@{app.name}"
+            android:text="@{app.label}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

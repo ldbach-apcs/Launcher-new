@@ -1,7 +1,6 @@
 package vn.ldbach.launcher.AppList;
 
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.AsyncTask;
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Duy-Bach on 3/18/2018.
+ * Load list of application in background
  */
 class AsyncAppLoader extends AsyncTask<Void, Void, List<AppDetail>> {
     private Fragment loaderFragment = null;
@@ -33,10 +32,10 @@ class AsyncAppLoader extends AsyncTask<Void, Void, List<AppDetail>> {
         List<ResolveInfo> packages = pm.queryIntentActivities(intent, 0);
         List<AppDetail> apps = new ArrayList<>();
         for (ResolveInfo packageInfo : packages) {
-            // String appName = packageInfo.loadLabel(pm).toString();
+            String appLabel = packageInfo.loadLabel(pm).toString();
             String appName = packageInfo.activityInfo.packageName;
             Intent appIntent = pm.getLaunchIntentForPackage(packageInfo.activityInfo.packageName);
-            AppDetail app = new AppDetail(appName, appIntent);
+            AppDetail app = new AppDetail(appName, appLabel, appIntent);
             apps.add(app);
         }
         return apps;

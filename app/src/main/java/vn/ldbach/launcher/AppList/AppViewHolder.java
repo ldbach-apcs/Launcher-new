@@ -1,10 +1,7 @@
 package vn.ldbach.launcher.AppList;
 
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import vn.ldbach.launcher.databinding.ItemAppBinding;
 
@@ -14,26 +11,19 @@ import vn.ldbach.launcher.databinding.ItemAppBinding;
 
 class AppViewHolder extends RecyclerView.ViewHolder {
     private final ItemAppBinding binding;
+    private final Fragment fragment;
 
-    AppViewHolder(final ItemAppBinding itemBinding, final Context context) {
+    AppViewHolder(final ItemAppBinding itemBinding, Fragment fragment) {
         super(itemBinding.getRoot());
-        View itemView = itemBinding.getRoot();
+        this.fragment = fragment;
         binding = itemBinding;
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AppDetail app = itemBinding.getApp();
-                // Intent launchIntent = app.getLaunchIntent();
-                // context.startActivity(launchIntent);
-                    Uri uri = Uri.parse("package:" + app.getName());
-                Intent uninstall = new Intent(Intent.ACTION_UNINSTALL_PACKAGE, uri);
-                context.startActivity(uninstall);
-            }
-        });
     }
+
 
     void bind(AppDetail app) {
         binding.setApp(app);
+        itemView.setOnClickListener(new AppItemClickListener(fragment, app));
+        itemView.setOnLongClickListener(new AppItemLongClickListener(fragment, app));
         binding.executePendingBindings();
     }
 }

@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -20,15 +21,14 @@ import vn.ldbach.launcher.LauncherFragment;
 import vn.ldbach.launcher.R;
 
 /**
- * Created by Duy-Bach on 3/18/2018.
+ * Fragment for displaying list of applications
  */
 
 public class AppListFragment extends LauncherFragment {
 
     RecyclerView appView = null;
     List<AppDetail> appList = null;
-    AppAdapter appAdapter;
-    TextView appCount = null;
+    AppListAdapter appListAdapter;
     private BroadcastReceiver appInstallReceiver, appRemoveReceiver;
 
     @Nullable
@@ -38,7 +38,6 @@ public class AppListFragment extends LauncherFragment {
                              @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_app_list, container, false);
         appView = rootView.findViewById(R.id.allAppList);
-        appCount = rootView.findViewById(R.id.allAppCount);
         return rootView;
     }
 
@@ -57,32 +56,36 @@ public class AppListFragment extends LauncherFragment {
 
     private void initAppView() {
         Context context = getContext();
-        appAdapter = new AppAdapter(appList);
+        appListAdapter = new AppListAdapter(appList, this);
         appView.setLayoutManager(new LinearLayoutManager(context));
         appView.setHasFixedSize(true);
-        appView.setAdapter(appAdapter);
+        appView.setAdapter(appListAdapter);
     }
 
     void refresh(List<AppDetail> apps) {
         appList = apps;
-        appAdapter.updateList(apps);
-        StringBuilder builder = new StringBuilder("App count: ").append(appAdapter.getItemCount());
-        appCount.setText(builder.toString());
-        Toast.makeText(getContext(), "Finish loading", Toast.LENGTH_SHORT).show();
+        appListAdapter.updateList(apps);
     }
 
     private void registerPackagesChanges() {
         registerPackageInstalled();
         registerPackagesRemoved();
-        // appAdapter.notifyDataSetChanged();
     }
 
     private void registerPackagesRemoved() {
         appRemoveReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                String packageName = intent.getData().getEncodedSchemeSpecificPart();
-                Toast.makeText(context, "App removed: " + packageName1, Toast.LENGTH_SHORT).show();
+                final String packageName = intent.getData().getEncodedSchemeSpecificPart();
+                if (packageName != null) {
+                    for (AppDetail app : appList) {
+                        if (!app.getName().equals(packageName)) {
+                            appList.remove(app);
+                            break;
+                        }
+                    }
+                }
+                refresh(appList);
             }
         };
         IntentFilter appRemoved = new IntentFilter(Intent.ACTION_PACKAGE_REMOVED);
@@ -95,14 +98,25 @@ public class AppListFragment extends LauncherFragment {
             @Override
             public void onReceive(Context context, Intent intent) {
                 String packageName = intent.getData().getEncodedSchemeSpecificPart();
-                Toast.makeText(context, "App installed: " + packageName, Toast.LENGTH_SHORT).show();
+                if (packageName != null) {
+                    try {
+                        final PackageManager pm = getContext().getPackageManager();
+                        ApplicationInfo app = pm.getApplicationInfo(packageName, 0);
+                        String appLabel = app.loadLabel(pm).toString();
+                        String appName = app.packageName;
+                        Intent appIntent = pm.getLaunchIntentForPackage(app.packageName);
+                        appList.add(new AppDetail(appName, appLabel, appIntent));
+                    } catch (PackageManager.NameNotFoundException e) {
+                        // Do nothing
+                    }
+                    refresh(appList);
+                }
             }
         };
         IntentFilter appInstalled = new IntentFilter(Intent.ACTION_PACKAGE_ADDED);
         appInstalled.addDataScheme("package");
         getContext().registerReceiver(appInstallReceiver, appInstalled);
     }
-
 
     @Override
     public void onDestroy() {

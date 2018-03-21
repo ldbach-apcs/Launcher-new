@@ -8,20 +8,21 @@ import android.content.Intent;
 
 public final class AppDetail {
 
-    AppDetail(String appName, Intent appLaunchIntent) {
+    AppDetail(String appName, String appLabel, Intent appLaunchIntent) {
         name = appName;
+        label = appLabel;
         launchIntent = appLaunchIntent;
     }
 
     private String name;
     private Intent launchIntent;
+    private String label;
 
+    public String getLabel() {return label;}
     public String getName() {
         return name;
     }
-
-    @SuppressWarnings("unused")
-    public Intent getLaunchIntent() {
+    Intent getLaunchIntent() {
         return launchIntent;
     }
 }
