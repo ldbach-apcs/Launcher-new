@@ -4,16 +4,25 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/allAppCount"
+    <EditText
+        android:id="@+id/searchAppBox"
         android:padding="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <android.support.v7.widget.RecyclerView
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintRight_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/allAppCount"
+        app:layout_constraintTop_toBottomOf="@id/searchAppBox" />
+
+    <android.support.v7.widget.RecyclerView
+        android:visibility="gone"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchAppBox"
         android:id="@+id/allAppList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
