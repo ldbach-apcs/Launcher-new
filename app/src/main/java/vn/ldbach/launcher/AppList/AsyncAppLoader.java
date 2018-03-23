@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -38,6 +39,7 @@ class AsyncAppLoader extends AsyncTask<Void, Void, List<AppDetail>> {
             AppDetail app = new AppDetail(appName, appLabel, appIntent);
             apps.add(app);
         }
+        Collections.sort(apps, AppDetail::compares);
         return apps;
     }
 

@@ -1,14 +1,12 @@
 package vn.ldbach.launcher;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 public class AppLaunchActivity extends AppCompatActivity {
 
     /*
-     * AppLaunchActivity: Contains only a search bar for
-     * searching application and contacts. All the lists
-     * will be handled inside fragments.
+     * Empty for now
      */
 
     @Override

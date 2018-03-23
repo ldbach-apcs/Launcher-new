@@ -10,12 +10,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Filter;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import java.util.List;
 
@@ -44,7 +46,34 @@ public class AppListFragment extends LauncherFragment {
         appView = rootView.findViewById(R.id.allAppList);
         searchAppBox = rootView.findViewById(R.id.searchAppBox);
         progressBar = rootView.findViewById(R.id.progressBar);
+        setupInteraction();
         return rootView;
+    }
+
+    private void setupInteraction() {
+        searchAppBox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                filterApps(editable.toString());
+            }
+        });
+    }
+
+    private void filterApps(String s) {
+        if (appListAdapter != null) {
+            Filter appFilter = appListAdapter.getFilter();
+            appFilter.filter(s);
+        }
     }
 
     @Override
@@ -84,7 +113,9 @@ public class AppListFragment extends LauncherFragment {
         appRemoveReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
+                @SuppressWarnings("ConstantConditions") // null check below so no worries
                 final String packageName = intent.getData().getEncodedSchemeSpecificPart();
+
                 if (packageName != null) {
                     for (AppDetail app : appList) {
                         if (!app.getName().equals(packageName)) {
@@ -103,9 +134,12 @@ public class AppListFragment extends LauncherFragment {
 
     private void registerPackageInstalled() {
         appInstallReceiver = new BroadcastReceiver() {
+
             @Override
             public void onReceive(Context context, Intent intent) {
-                String packageName = intent.getData().getEncodedSchemeSpecificPart();
+                @SuppressWarnings("ConstantConditions") // null check below so no worries
+                        String packageName = intent.getData().getEncodedSchemeSpecificPart();
+
                 if (packageName != null) {
                     try {
                         final PackageManager pm = getContext().getPackageManager();
