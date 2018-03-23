@@ -1,4 +1,4 @@
-package vn.ldbach.launcher.AppList;
+package vn.ldbach.launcher.AppListFunction;
 
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;

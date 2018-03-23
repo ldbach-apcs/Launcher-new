@@ -1,12 +1,11 @@
-package vn.ldbach.launcher.AppList;
+package vn.ldbach.launcher.AppListFunction;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
 /**
- * Created by Duy-Bach on 3/20/2018.
+ * Handle click event in launcher main
  */
 
 public final class AppItemClickListener implements View.OnClickListener {

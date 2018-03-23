@@ -1,4 +1,4 @@
-package vn.ldbach.launcher.AppList;
+package vn.ldbach.launcher.AppListFunction;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,7 +29,7 @@ import vn.ldbach.launcher.R;
  * Fragment for displaying list of applications
  */
 
-public class AppListFragment extends LauncherFragment {
+public final class AppListFragment extends LauncherFragment {
 
     RecyclerView appView = null;
     List<AppDetail> appList = null;
@@ -37,7 +38,7 @@ public class AppListFragment extends LauncherFragment {
     private EditText searchAppBox;
     private ProgressBar progressBar;
 
-    @Nullable
+    @NonNull
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
@@ -161,9 +162,9 @@ public class AppListFragment extends LauncherFragment {
     }
 
     @Override
-    public void onDestroy() {
+    public void onStop() {
         unregisterPackagesChanges();
-        super.onDestroy();
+        super.onStop();
     }
 
     private void unregisterPackagesChanges() {

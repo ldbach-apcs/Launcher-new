@@ -1,4 +1,4 @@
-package vn.ldbach.launcher.AppList;
+package vn.ldbach.launcher.AppListFunction;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;

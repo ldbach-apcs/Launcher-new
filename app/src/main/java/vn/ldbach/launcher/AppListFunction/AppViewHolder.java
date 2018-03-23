@@ -1,4 +1,4 @@
-package vn.ldbach.launcher.AppList;
+package vn.ldbach.launcher.AppListFunction;
 
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import vn.ldbach.launcher.databinding.ItemAppBinding;
 
 /**
- * Created by Duy-Bach on 3/18/2018.
+ * ViewHolder for application in Launcher main
  */
 
 class AppViewHolder extends RecyclerView.ViewHolder {

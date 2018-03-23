@@ -1,20 +1,18 @@
-package vn.ldbach.launcher.AppList;
+package vn.ldbach.launcher.AppListFunction;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.view.ContextThemeWrapper;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 
 import vn.ldbach.launcher.R;
 
 /**
- * Created by Duy-Bach on 3/20/2018.
+ * Handle long click event in launcher main
  */
 
 public class AppItemLongClickListener implements View.OnLongClickListener {
