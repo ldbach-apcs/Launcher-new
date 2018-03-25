@@ -7,4 +7,7 @@ import android.support.v4.app.Fragment;
  */
 
 public abstract class LauncherFragment extends Fragment {
+    public abstract void onFragmentEnter();
+
+    public abstract void onFragmentExit();
 }

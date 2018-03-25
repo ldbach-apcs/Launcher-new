@@ -1,5 +1,6 @@
 package vn.ldbach.launcher.NoteFunction;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
@@ -91,5 +93,19 @@ public final class NoteFragment extends LauncherFragment {
         getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onFragmentEnter() {
+        if (noteInput == null) return;
+        noteInput.setSelection(noteInput.getText().length());
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null)
+            imm.hideSoftInputFromWindow(noteInput.getWindowToken(), 0);
+    }
+
+    @Override
+    public void onFragmentExit() {
+
     }
 }

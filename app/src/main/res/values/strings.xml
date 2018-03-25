@@ -3,4 +3,6 @@
     <string name="app_info">Application info</string>
     <string name="app_delete">Delete  app</string>
     <string name="query_search_app">Search for applications</string>
+    <string name="app_icon">App icon</string>
+    <string name="stop_music">Stop music</string>
 </resources>

@@ -1,6 +1,5 @@
 package vn.ldbach.launcher.AppListFunction;
 
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -11,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import vn.ldbach.launcher.LauncherFragment;
 import vn.ldbach.launcher.databinding.ItemAppBinding;
 
 /**
@@ -20,10 +20,10 @@ import vn.ldbach.launcher.databinding.ItemAppBinding;
 class AppListAdapter extends RecyclerView.Adapter<AppViewHolder> implements Filterable {
     private List<AppDetail> filteredApps;
     private List<AppDetail> allApps;
-    private Fragment fragment;
+    private LauncherFragment fragment;
     private Filter mFilter = new AppFilter();
 
-    AppListAdapter(List<AppDetail> appDetails, Fragment fragment) {
+    AppListAdapter(List<AppDetail> appDetails, LauncherFragment fragment) {
         filteredApps = appDetails;
         allApps = filteredApps;
         this.fragment = fragment;

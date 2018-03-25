@@ -3,6 +3,7 @@ package vn.ldbach.launcher.AppListFunction;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 
@@ -36,7 +37,8 @@ class AsyncAppLoader extends AsyncTask<Void, Void, List<AppDetail>> {
             String appLabel = packageInfo.loadLabel(pm).toString();
             String appName = packageInfo.activityInfo.packageName;
             Intent appIntent = pm.getLaunchIntentForPackage(packageInfo.activityInfo.packageName);
-            AppDetail app = new AppDetail(appName, appLabel, appIntent);
+            Drawable appIcon = packageInfo.activityInfo.loadIcon(pm);
+            AppDetail app = new AppDetail(appName, appLabel, appIcon, appIntent);
             apps.add(app);
         }
         Collections.sort(apps, AppDetail::compares);

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+
     <data>
 
         <variable
-            name="app"
-            type="vn.ldbach.launcher.AppListFunction.AppDetail" />
+            name="song"
+            type="vn.ldbach.launcher.MusicPlayerFunction.Song" />
     </data>
 
     <LinearLayout
@@ -13,25 +14,24 @@
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:paddingEnd="16dp"
         android:paddingStart="16dp">
-
-        <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="16dp"
-            android:contentDescription="@string/app_icon"
-            android:scaleType="fitCenter"
-            android:src="@{app.icon}" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="@{app.label}"
+            android:text="@{song.title}"
             android:textColor="@color/colorTextSearchPrimary"
             android:textSize="17sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@{song.artist}"
+            android:textColor="@color/colorTextSearchPrimary"
+            android:textSize="13sp" />
     </LinearLayout>
 </layout>

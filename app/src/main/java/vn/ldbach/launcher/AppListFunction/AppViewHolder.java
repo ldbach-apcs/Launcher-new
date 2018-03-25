@@ -1,8 +1,8 @@
 package vn.ldbach.launcher.AppListFunction;
 
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 
+import vn.ldbach.launcher.LauncherFragment;
 import vn.ldbach.launcher.databinding.ItemAppBinding;
 
 /**
@@ -11,9 +11,9 @@ import vn.ldbach.launcher.databinding.ItemAppBinding;
 
 class AppViewHolder extends RecyclerView.ViewHolder {
     private final ItemAppBinding binding;
-    private final Fragment fragment;
+    private final LauncherFragment fragment;
 
-    AppViewHolder(final ItemAppBinding itemBinding, Fragment fragment) {
+    AppViewHolder(final ItemAppBinding itemBinding, LauncherFragment fragment) {
         super(itemBinding.getRoot());
         this.fragment = fragment;
         binding = itemBinding;
